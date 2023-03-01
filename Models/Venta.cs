@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace API_proyecto_Final_PabloArias
 {
-    internal class Venta
+   public class Venta
     {
         public long id;
         public string comentarios;

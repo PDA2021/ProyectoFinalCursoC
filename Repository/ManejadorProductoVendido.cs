@@ -70,6 +70,25 @@ namespace API_proyecto_Final_PabloArias.Repository
 
             }
         }
+                public static int InsertarProductoVendido(int Idventa,int stock,int Idproducto)
+        {
+            using (SqlConnection conn = new SqlConnection(cadenaConexion))
+            {
+                SqlCommand comando = new SqlCommand("INSERT INTO ProductoVendido(stock,idproducto,idventa)" +
+                    "VALUES(@stock, @idproducto, @idventa)", conn);
+                ProductoVendido Productovendido = new ProductoVendido();
+                comando.Parameters.AddWithValue("@stock", Productovendido.stock);
+                comando.Parameters.AddWithValue("@idproducto", Productovendido.Idproducto);
+                comando.Parameters.AddWithValue("@idventa", Productovendido.Idventa);
+            
+                conn.Open();
+                return comando.ExecuteNonQuery();
+
+            }
+        }
+
+
+
     }
 }
 

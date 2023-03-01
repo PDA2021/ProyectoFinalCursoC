@@ -122,20 +122,6 @@ namespace API_proyecto_Final_PabloArias.Repository
 
             }
         }
-
-        public static int DeleteProducto(int id)
-        {
-            using (SqlConnection conn = new SqlConnection(cadenaConexion))
-            {
-                SqlCommand comando = new SqlCommand("DELETE FROM Producto" +
-                    "WHERE id=@id", conn);
-                comando.Parameters.AddWithValue("@id", id);
-                conn.Open();
-                return comando.ExecuteNonQuery();
-
-            }
-        }
-
         public static int UpdateProducto(Producto producto)
         {
             using (SqlConnection conn = new SqlConnection(cadenaConexion))
@@ -153,6 +139,38 @@ namespace API_proyecto_Final_PabloArias.Repository
                 comando.Parameters.AddWithValue("@idUsuario", producto.IdUsuario);
                 conn.Open();
                 return comando.ExecuteNonQuery();
+            }
+        }
+        //
+        public static bool EliminarProducto(int id)
+        {
+            using (SqlConnection conn = new SqlConnection(cadenaConexion))
+            {
+                using (SqlCommand comando = new SqlCommand())
+                {
+                    comando.Connection = conn;
+                    comando.Connection.Open();
+
+                    comando.CommandText = @" DELETE FROM
+                                                    Producto
+                                                WHERE 
+                                                    Id = @ID
+                                            ";
+
+                    comando.Parameters.AddWithValue("@ID", id);
+                    int recordsAffected = comando.ExecuteNonQuery();
+
+                    comando.Connection.Close();
+
+                    if (recordsAffected != 1)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
             }
         }
 

@@ -16,7 +16,7 @@ namespace API_proyecto_Final_PabloArias.Repository
             List<Venta> Ventas = new List<Venta>();
             using (SqlConnection conn = new SqlConnection(cadenaConexion))
             {
-                SqlCommand comando = new SqlCommand("SELECT * FROM ProductoVendido", conn);
+                SqlCommand comando = new SqlCommand("SELECT * FROM Venta", conn);
                 conn.Open();
 
                 SqlDataReader reader = comando.ExecuteReader();
@@ -68,6 +68,25 @@ namespace API_proyecto_Final_PabloArias.Repository
 
 
             }
+        }
+        public static int Insertarventa(Venta Venta)
+        {
+            using (SqlConnection conn = new SqlConnection(cadenaConexion))
+            {
+                SqlCommand comando = new SqlCommand("INSERT INTO Venta(Comentarios,IdUsuario)" +
+                    "VALUES(@comentarios,@idUsuario);Select @@IDENTITY", conn);
+               
+
+                comando.Parameters.AddWithValue("@Comentarios", Venta.comentarios);
+                comando.Parameters.AddWithValue("@IdUsuario", Venta.Idusuario);
+                
+
+                conn.Open();
+                return (int) Convert.ToInt64(comando.ExecuteScalar());
+              
+                
+            }
+
         }
     }
 }
